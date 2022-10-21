@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "com.locadora.App",
+            "projectName": "locadora"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-App<locadora>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "App",
+            "projectName": "locadora",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
