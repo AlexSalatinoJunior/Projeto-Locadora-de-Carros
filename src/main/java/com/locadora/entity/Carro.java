@@ -1,10 +1,17 @@
 package com.locadora.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "CARROS")
 public class Carro {
+    @Id
     private int id;
     private String modelo;
     private String placa;
-    private float valorDiaria;
+    private float valor_diaria;
 
     public int getId() {
         return id;
@@ -28,9 +35,9 @@ public class Carro {
     }
 
     public float getValorDiaria() {
-        return valorDiaria;
+        return valor_diaria;
     }
-    public void setValorDiaria(float valorDiaria) {
-        this.valorDiaria = valorDiaria;
+    public void setValorDiaria(float valor_diaria) {
+        this.valor_diaria = valor_diaria;
     }
 }

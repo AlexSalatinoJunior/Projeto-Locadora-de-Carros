@@ -1,14 +1,18 @@
 package com.locadora.entity;
 
-import java.sql.Timestamp;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "PEDIDOS")
 public class Pedido {
+    @Id
     private int id;
-    private int idCarro;
-    private int idCliente;
-    private Timestamp dataLocacao;
-    private int diasLocacao;
-    private float valorTotal;
+    private int id_carro;
+    private int id_cliente;
+    private int dias_locacao;
+    private float valor_total;
 
     public int getId() {
         return id;
@@ -18,37 +22,30 @@ public class Pedido {
     }
 
     public int getIdCarro() {
-        return idCarro;
+        return id_carro;
     }
-    public void setIdCarro(int idCarro) {
-        this.idCarro = idCarro;
+    public void setIdCarro(int id_carro) {
+        this.id_carro = id_carro;
     }
 
     public int getIdCliente() {
-        return idCliente;
+        return id_cliente;
     }
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public Timestamp getDataLocacao() {
-        return dataLocacao;
-    }
-    public void setDataLocacao(Timestamp dataLocacao) {
-        this.dataLocacao = dataLocacao;
+    public void setIdCliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     public int getDiasLocacao() {
-        return diasLocacao;
+        return dias_locacao;
     }
-    public void setDiasLocacao(int diasLocacao) {
-        this.diasLocacao = diasLocacao;
+    public void setDiasLocacao(int dias_locacao) {
+        this.dias_locacao = dias_locacao;
     }
 
     public float getValorTotal() {
-        return valorTotal;
+        return valor_total;
     }
-    public void setValorTotal(float valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setValorTotal(float valor_total) {
+        this.valor_total = valor_total;
     }
 }
