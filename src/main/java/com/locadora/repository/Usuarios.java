@@ -11,5 +11,7 @@ import com.locadora.entity.Usuario;
 public interface Usuarios extends JpaRepository<Usuario, Integer>{
 
     List<Usuario> findByNomeContaining(String nome);
+    List<Usuario> findByCnhContaining(int cnh);
+    List<Usuario> findByAdministradorContaining(boolean isAdm);
 
 }
