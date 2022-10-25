@@ -21,39 +21,45 @@ public class App{
         return args -> {
             System.out.println("Salvando usuarios");
             Usuario usuario = new Usuario();
-            usuario.setUsuario("Alex");
-            usuarios.salvarUser(usuario);
+            usuario.setNome("Alex");
+            usuarios.save(usuario);
 
             Usuario usuario2 = new Usuario();
-            usuario2.setUsuario("João");
-            usuarios.salvarUser(usuario2);
+            usuario2.setNome("João");
+            usuarios.save(usuario2);
 
             Usuario usuario3 = new Usuario();
-            usuario3.setUsuario("André");
-            usuarios.salvarUser(usuario3);
+            usuario3.setNome("André");
+            usuarios.save(usuario3);
 
+            List<Usuario> todosUsuarios = usuarios.findAll();
             System.out.println("Listando todos usuarios");
-            List<Usuario> todosUsuarios = usuarios.listarTodos();
             if(todosUsuarios.isEmpty()){
                 System.out.println("Nenhum usuário cadastrado.");
             } else todosUsuarios.forEach(System.out::println);
 
             System.out.println("Atualizando usuarios");
             todosUsuarios.forEach(u -> {
-                u.setUsuario(u.getUsuario() + " atualizado");
-                usuarios.atualizarUser(u);
+                u.setNome(u.getNome() + " atualizado");
+                usuarios.save(u);
             });
 
+            System.out.println("Listando todos usuarios");
+            todosUsuarios = usuarios.findAll();
+            if(todosUsuarios.isEmpty()){
+                System.out.println("Nenhum usuário cadastrado.");
+            } else todosUsuarios.forEach(System.out::println);
+
             System.out.println("Buscando usuario pelo nome");
-            usuarios.buscarPorNome("Alex").forEach(System.out::println);
+            usuarios.findByNomeContaining("ex").forEach(System.out::println);
 
             System.out.println("Deletando usuarios");
-            usuarios.deletarUser(1);
-            usuarios.deletarUser(2);
-            usuarios.deletarUser(3);
+            usuarios.deleteById(1);
+            usuarios.deleteById(2);
+            usuarios.deleteById(3);
 
             System.out.println("Listando todos usuarios");
-            todosUsuarios = usuarios.listarTodos();
+            todosUsuarios = usuarios.findAll();
             if(todosUsuarios.isEmpty()){
                 System.out.println("Nenhum usuário cadastrado.");
             } else todosUsuarios.forEach(System.out::println);

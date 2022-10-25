@@ -7,24 +7,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Usuario")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String usuario;
+    private String nome;
     private String cnh;
     private boolean administrador;
 
     public Usuario(){
     }
 
-    public Usuario(String usuario){
-        this.usuario = usuario;
+    public Usuario(String nome){
+        this.nome = nome;
     }
 
-    public Usuario(String usuario, int id){
-        this.usuario = usuario;
+    public Usuario(String nome, int id){
+        this.nome = nome;
         this.id = id;
     }
 
@@ -35,11 +34,11 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getNome() {
+        return nome;
     }
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getCNH() {
@@ -57,7 +56,7 @@ public class Usuario {
     public String toString(){
         return "Usuario{"+
                 "id="+id+
-                ", nome: "+usuario+"\'"+
+                ", nome: "+nome+"\'"+
                 "}";
     }
 }

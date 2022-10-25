@@ -1,7 +1,0 @@
-com\locadora\AppConfiguration.class
-com\locadora\repository\VehicleRepository.class
-com\locadora\services\VehicleService.class
-com\locadora\services\UserService.class
-com\locadora\repository\UserRepository.class
-com\locadora\App.class
-com\locadora\model\User.class
