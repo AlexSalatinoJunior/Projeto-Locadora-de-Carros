@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "USUARIOS")
@@ -15,6 +17,9 @@ public class Usuario {
     private String nome;
     private String cnh;
     private boolean administrador;
+
+    @OneToMany(mappedBy = "idUsuario")
+    List<Pedido> pedidosUsuario;
 
     public Usuario(){
     }
@@ -56,8 +61,16 @@ public class Usuario {
     @Override
     public String toString(){
         return "Usuario{"+
-                "id="+id+
-                ", nome: "+nome+"\'"+
-                "}";
+        "id="+id+
+        ", nome: "+nome+"\'"+
+        "}";
     }
+
+        public List<Pedido> getPedidosUsuario() {
+            return pedidosUsuario;
+        }
+
+        public void setPedidosUsuario(List<Pedido> pedidosUsuario) {
+            this.pedidosUsuario = pedidosUsuario;
+        }
 }

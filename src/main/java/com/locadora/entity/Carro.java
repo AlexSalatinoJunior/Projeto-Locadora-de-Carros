@@ -1,17 +1,25 @@
 package com.locadora.entity;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "CARROS")
 public class Carro {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String modelo;
     private String placa;
-    private float valor_diaria;
+    private float valorDiaria;
+
+    @OneToMany(mappedBy = "idCarro")
+    List<Pedido> carroPedidos;
 
     public int getId() {
         return id;
@@ -35,9 +43,16 @@ public class Carro {
     }
 
     public float getValorDiaria() {
-        return valor_diaria;
+        return valorDiaria;
     }
-    public void setValorDiaria(float valor_diaria) {
-        this.valor_diaria = valor_diaria;
+    public void setValorDiaria(float valorDiaria) {
+        this.valorDiaria = valorDiaria;
+    }
+
+    public List<Pedido> getCarroPedidos() {
+        return carroPedidos;
+    }
+    public void setCarroPedidos(List<Pedido> carroPedidos) {
+        this.carroPedidos = carroPedidos;
     }
 }

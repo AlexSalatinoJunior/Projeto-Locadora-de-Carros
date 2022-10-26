@@ -10,4 +10,5 @@ public interface Carros extends JpaRepository<Carro, Integer>{
 
     List<Carro> findByModeloContaining(String modelo);
     List<Carro> findByPlacaContaining(String placa);
+    List<Carro> findByValordiariaContaining(Double valorDiaria);
 }

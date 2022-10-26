@@ -1,18 +1,34 @@
 package com.locadora.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "PEDIDOS")
 public class Pedido {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int id_carro;
-    private int id_cliente;
-    private int dias_locacao;
-    private float valor_total;
+
+    @OneToOne
+    @JoinColumn(name = "id_carro")
+    private int idCarro;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private int idUsuario;
+
+    private int diasLocacao;
+
+    @Column(name = "valor_total", length = 20, precision = 2)
+    private float valorTotal;
 
     public int getId() {
         return id;
@@ -22,30 +38,30 @@ public class Pedido {
     }
 
     public int getIdCarro() {
-        return id_carro;
+        return idCarro;
     }
-    public void setIdCarro(int id_carro) {
-        this.id_carro = id_carro;
+    public void setIdCarro(int idCarro) {
+        this.idCarro = idCarro;
     }
 
-    public int getIdCliente() {
-        return id_cliente;
+    public int getIdUsuario() {
+        return idUsuario;
     }
-    public void setIdCliente(int id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public int getDiasLocacao() {
-        return dias_locacao;
+        return diasLocacao;
     }
-    public void setDiasLocacao(int dias_locacao) {
-        this.dias_locacao = dias_locacao;
+    public void setDiasLocacao(int diasLocacao) {
+        this.diasLocacao = diasLocacao;
     }
 
     public float getValorTotal() {
-        return valor_total;
+        return valorTotal;
     }
-    public void setValorTotal(float valor_total) {
-        this.valor_total = valor_total;
+    public void setValorTotal(float valorTotal) {
+        this.valorTotal = valorTotal;
     }
 }
