@@ -18,7 +18,7 @@ public class Carro {
     private String placa;
     private float valorDiaria;
 
-    @OneToMany(mappedBy = "idCarro")
+    @OneToMany(mappedBy = "carro")
     List<Pedido> carroPedidos;
 
     public int getId() {

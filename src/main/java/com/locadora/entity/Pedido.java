@@ -18,17 +18,17 @@ public class Pedido {
     private int id;
 
     @OneToOne
-    @JoinColumn(name = "id_carro")
-    private int idCarro;
+    @JoinColumn(name = "carro")
+    private Carro carro;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private int idUsuario;
+    @JoinColumn(name = "usuario")
+    private Usuario usuario;
 
     private int diasLocacao;
 
-    @Column(name = "valor_total", length = 20, precision = 2)
-    private float valorTotal;
+    @Column(name = "valor_total", scale = 2, precision = 20)
+    private double valorTotal;
 
     public int getId() {
         return id;
@@ -37,18 +37,18 @@ public class Pedido {
         this.id = id;
     }
 
-    public int getIdCarro() {
-        return idCarro;
+    public Carro getCarro() {
+        return carro;
     }
-    public void setIdCarro(int idCarro) {
-        this.idCarro = idCarro;
+    public void setCarro(Carro carro) {
+        this.carro = carro;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public int getDiasLocacao() {
@@ -58,10 +58,10 @@ public class Pedido {
         this.diasLocacao = diasLocacao;
     }
 
-    public float getValorTotal() {
+    public double getValorTotal() {
         return valorTotal;
     }
-    public void setValorTotal(float valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setValorTotal(double d) {
+        this.valorTotal = d;
     }
 }

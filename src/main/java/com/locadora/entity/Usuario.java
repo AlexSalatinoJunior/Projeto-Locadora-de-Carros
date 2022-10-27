@@ -18,7 +18,7 @@ public class Usuario {
     private String cnh;
     private boolean administrador;
 
-    @OneToMany(mappedBy = "idUsuario")
+    @OneToMany(mappedBy = "usuario")
     List<Pedido> pedidosUsuario;
 
     public Usuario(){

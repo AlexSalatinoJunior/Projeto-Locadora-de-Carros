@@ -1,15 +1,14 @@
 package com.locadora;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.locadora.entity.Pedido;
 import com.locadora.entity.Usuario;
+import com.locadora.repository.Pedidos;
 import com.locadora.repository.Usuarios;
 
 @SpringBootApplication()
@@ -17,52 +16,38 @@ import com.locadora.repository.Usuarios;
 public class App{
 
     @Bean
-    public CommandLineRunner init(@Autowired Usuarios usuarios){
+    public CommandLineRunner init(@Autowired Usuarios usuarios, @Autowired Pedidos pedidos){
         return args -> {
             System.out.println("Salvando usuarios");
+
             Usuario usuario = new Usuario();
             usuario.setNome("Alex");
             usuarios.save(usuario);
 
             Usuario usuario2 = new Usuario();
-            usuario2.setNome("João");
+            usuario2.setNome("Andre");
             usuarios.save(usuario2);
 
             Usuario usuario3 = new Usuario();
-            usuario3.setNome("André");
+            usuario3.setNome("Joao");
             usuarios.save(usuario3);
 
-            List<Usuario> todosUsuarios = usuarios.findAll();
-            System.out.println("Listando todos usuarios");
-            if(todosUsuarios.isEmpty()){
-                System.out.println("Nenhum usuário cadastrado.");
-            } else todosUsuarios.forEach(System.out::println);
+            Pedido p = new Pedido();
+            p.setUsuario(usuario);
+            pedidos.save(p);
 
-            System.out.println("Atualizando usuarios");
-            todosUsuarios.forEach(u -> {
-                u.setNome(u.getNome() + " atualizado");
-                usuarios.save(u);
-            });
+            Pedido p2 = new Pedido();
+            p2.setUsuario(usuario2);
+            pedidos.save(p2);
 
-            System.out.println("Listando todos usuarios");
-            todosUsuarios = usuarios.findAll();
-            if(todosUsuarios.isEmpty()){
-                System.out.println("Nenhum usuário cadastrado.");
-            } else todosUsuarios.forEach(System.out::println);
+            Pedido p3 = new Pedido();
+            p3.setUsuario(usuario3);
+            pedidos.save(p3);
 
-            System.out.println("Buscando usuario pelo nome");
-            usuarios.findByNomeContaining("ex").forEach(System.out::println);
+            Usuario fulano = usuarios.findClienteFetchPedidos(3);
+            System.out.println(fulano.getPedidosUsuario());
 
-            System.out.println("Deletando usuarios");
-            usuarios.deleteById(1);
-            usuarios.deleteById(2);
-            usuarios.deleteById(3);
-
-            System.out.println("Listando todos usuarios");
-            todosUsuarios = usuarios.findAll();
-            if(todosUsuarios.isEmpty()){
-                System.out.println("Nenhum usuário cadastrado.");
-            } else todosUsuarios.forEach(System.out::println);
+            System.out.println(pedidos.findByUsuario(usuario));
         };
     }
 
