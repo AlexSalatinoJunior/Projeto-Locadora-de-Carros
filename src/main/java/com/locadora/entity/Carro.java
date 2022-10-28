@@ -17,6 +17,7 @@ public class Carro {
     private String modelo;
     private String placa;
     private float valorDiaria;
+    private boolean disponivel;
 
     @OneToMany(mappedBy = "carro")
     List<Pedido> carroPedidos;
@@ -48,11 +49,18 @@ public class Carro {
     public void setValorDiaria(float valorDiaria) {
         this.valorDiaria = valorDiaria;
     }
-
+    
     public List<Pedido> getCarroPedidos() {
         return carroPedidos;
     }
     public void setCarroPedidos(List<Pedido> carroPedidos) {
         this.carroPedidos = carroPedidos;
+    }
+    
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 }

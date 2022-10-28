@@ -1,8 +1,11 @@
-com\locadora\AppConfiguration.class
 com\locadora\entity\Pedido.class
 com\locadora\entity\Carro.class
 com\locadora\repository\Pedidos.class
 com\locadora\repository\Carros.class
-com\locadora\entity\Usuario.class
 com\locadora\repository\Usuarios.class
 com\locadora\App.class
+com\locadora\controller\CarroController.class
+com\locadora\controller\PedidoController.class
+com\locadora\controller\UsuarioController.class
+com\locadora\AppConfiguration.class
+com\locadora\entity\Usuario.class

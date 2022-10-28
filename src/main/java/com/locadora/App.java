@@ -32,22 +32,6 @@ public class App{
             usuario3.setNome("Joao");
             usuarios.save(usuario3);
 
-            Pedido p = new Pedido();
-            p.setUsuario(usuario);
-            pedidos.save(p);
-
-            Pedido p2 = new Pedido();
-            p2.setUsuario(usuario2);
-            pedidos.save(p2);
-
-            Pedido p3 = new Pedido();
-            p3.setUsuario(usuario3);
-            pedidos.save(p3);
-
-            Usuario fulano = usuarios.findClienteFetchPedidos(3);
-            System.out.println(fulano.getPedidosUsuario());
-
-            System.out.println(pedidos.findByUsuario(usuario));
         };
     }
 
