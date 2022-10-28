@@ -1,14 +1,16 @@
 package com.locadora.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "USUARIOS")
@@ -20,8 +22,9 @@ public class Usuario {
     private String cnh;
     private boolean administrador = false;
 
-    @OneToMany(mappedBy = "usuario")
-    List<Pedido> pedidosUsuario = new ArrayList<Pedido>();
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Pedido> pedidosUsuario;
 
     public Usuario(){}
 
@@ -68,11 +71,8 @@ public class Usuario {
         "}";
     }
 
-        public List<Pedido> getPedidosUsuario() {
+        public Set<Pedido> getPedidosUsuario() {
             return pedidosUsuario;
         }
 
-        public void setPedidosUsuario(List<Pedido> pedidosUsuario) {
-            this.pedidosUsuario = pedidosUsuario;
-        }
 }

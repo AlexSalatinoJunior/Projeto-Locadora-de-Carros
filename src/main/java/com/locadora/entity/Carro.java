@@ -1,13 +1,15 @@
 package com.locadora.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "CARROS")
@@ -20,8 +22,9 @@ public class Carro {
     private float valorDiaria;
     private boolean disponivel;
 
-    @OneToMany(mappedBy = "carro")
-    List<Pedido> carroPedidos = new ArrayList<Pedido>();
+    @OneToMany(mappedBy = "carro", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Pedido> carroPedidos;
 
     public Carro(){}
 
@@ -60,11 +63,8 @@ public class Carro {
         this.valorDiaria = valorDiaria;
     }
 
-    public List<Pedido> getCarroPedidos() {
+    public Set<Pedido> getCarroPedidos() {
         return carroPedidos;
-    }
-    public void addCarroPedidos(Pedido pedido) {
-        carroPedidos.add(pedido);
     }
 
     public boolean isDisponivel() {
