@@ -63,7 +63,7 @@ public class CarroController {
 
     @GetMapping("/api/carros/valor-maior-que/{valor}")
     @ResponseBody()
-    public ResponseEntity getCarroByValorMaiorQue(@PathVariable double valor){
+    public ResponseEntity getCarroByValorMaiorQue(@PathVariable Float valor){
         List<Carro> carrosValor = carros.findByValorDiariaGreaterThan(valor);
         if(carrosValor.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -73,7 +73,7 @@ public class CarroController {
 
     @GetMapping("/api/carros/valor-menor-que/{valor}")
     @ResponseBody()
-    public ResponseEntity getCarroByValorMenorQue(@PathVariable double valor){
+    public ResponseEntity getCarroByValorMenorQue(@PathVariable Float valor){
         List<Carro> carrosValor = carros.findByValorDiariaLessThan(valor);
         if(carrosValor.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -84,7 +84,7 @@ public class CarroController {
     @GetMapping("/api/carros/disponiveis")
     @ResponseBody()
     public ResponseEntity getCarrosDisponiveis(){
-        List<Carro> carrosDisponiveis = carros.findByDisponivelContaining(true);
+        List<Carro> carrosDisponiveis = carros.findByDisponivel(true);
         if(carrosDisponiveis.isEmpty()){
             return ResponseEntity.notFound().build();
         }
@@ -94,7 +94,7 @@ public class CarroController {
     @GetMapping("/api/carros/locados")
     @ResponseBody()
     public ResponseEntity getCarrosLocados(){
-        List<Carro> carrosLocados = carros.findByDisponivelContaining(false);
+        List<Carro> carrosLocados = carros.findByDisponivel(false);
         if(carrosLocados.isEmpty()){
             return ResponseEntity.notFound().build();
         }

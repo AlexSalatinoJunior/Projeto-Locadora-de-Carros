@@ -1,5 +1,6 @@
 package com.locadora.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,16 @@ public class Carro {
     private boolean disponivel;
 
     @OneToMany(mappedBy = "carro")
-    List<Pedido> carroPedidos;
+    List<Pedido> carroPedidos = new ArrayList<Pedido>();
+
+    public Carro(){}
+
+    public Carro(String modelo, String placa, float valorDiaria){
+        this.modelo = modelo;
+        this.placa = placa;
+        this.valorDiaria = valorDiaria;
+        this.disponivel = true;
+    }
 
     public int getId() {
         return id;
@@ -49,14 +59,14 @@ public class Carro {
     public void setValorDiaria(float valorDiaria) {
         this.valorDiaria = valorDiaria;
     }
-    
+
     public List<Pedido> getCarroPedidos() {
         return carroPedidos;
     }
-    public void setCarroPedidos(List<Pedido> carroPedidos) {
-        this.carroPedidos = carroPedidos;
+    public void addCarroPedidos(Pedido pedido) {
+        carroPedidos.add(pedido);
     }
-    
+
     public boolean isDisponivel() {
         return disponivel;
     }

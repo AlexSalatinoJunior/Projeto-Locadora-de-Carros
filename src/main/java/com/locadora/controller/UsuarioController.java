@@ -62,7 +62,7 @@ public class UsuarioController {
     @GetMapping("/api/usuarios/admin/{admin}")
     @ResponseBody
     public ResponseEntity getUsuariosByAdmin(@PathVariable Boolean admin){
-        List<Usuario> usuariosAdm = usuarios.findByAdministradorContaining(admin);
+        List<Usuario> usuariosAdm = usuarios.findByAdministrador(admin);
         if(usuariosAdm.isEmpty()){
             return ResponseEntity.notFound().build();
         }

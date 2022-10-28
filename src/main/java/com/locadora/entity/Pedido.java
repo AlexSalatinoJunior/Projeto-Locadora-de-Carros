@@ -30,6 +30,16 @@ public class Pedido {
     @Column(name = "valor_total", scale = 2, precision = 20)
     private double valorTotal;
 
+    public Pedido(){}
+
+    public Pedido(Carro carro, Usuario usuario, int diasLocacao){
+        this.carro = carro;
+        this.usuario = usuario;
+        this.diasLocacao = diasLocacao;
+        this.valorTotal = diasLocacao * carro.getValorDiaria();
+        carro.setDisponivel(false);
+    }
+
     public int getId() {
         return id;
     }

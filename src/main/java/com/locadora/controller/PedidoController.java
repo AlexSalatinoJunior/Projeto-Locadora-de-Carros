@@ -12,15 +12,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.locadora.entity.Carro;
 import com.locadora.entity.Pedido;
 import com.locadora.entity.Usuario;
+import com.locadora.repository.Carros;
 import com.locadora.repository.Pedidos;
+import com.locadora.repository.Usuarios;
 
 @Controller
 public class PedidoController {
 
     private Pedidos pedidos;
+    private Usuarios usuarios;
+    private Carros carros;
 
-    public PedidoController(Pedidos pedidos){
+    public PedidoController(Pedidos pedidos, Usuarios usuarios, Carros carros){
         this.pedidos = pedidos;
+        this.usuarios = usuarios;
+        this.carros = carros;
     }
 
     @GetMapping("/api/pedidos")
@@ -43,9 +49,10 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoById);
     }
 
-    @GetMapping("/api/pedidos/usuario/{usuario}")
+    @GetMapping("/api/pedidos/usuario/{idUsuario}")
     @ResponseBody
-    public ResponseEntity getPedidosPorUsuario(@PathVariable Usuario usuario){
+    public ResponseEntity getPedidosPorUsuario(@PathVariable Integer idUsuario){
+        Usuario usuario = usuarios.findById(idUsuario).get();
         List<Pedido> pedidosUsuario = pedidos.findByUsuario(usuario);
         if(pedidosUsuario.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -53,9 +60,10 @@ public class PedidoController {
         return ResponseEntity.ok(pedidosUsuario);
     }
 
-    @GetMapping("/api/pedidos/carro/{carro}")
+    @GetMapping("/api/pedidos/carro/{idCarro}")
     @ResponseBody
-    public ResponseEntity getPedidosPorUsuario(@PathVariable Carro carro){
+    public ResponseEntity getPedidosPorCarro(@PathVariable Integer idCarro){
+        Carro carro = carros.findById(idCarro).get();
         List<Pedido> pedidosCarro = pedidos.findByCarro(carro);
         if(pedidosCarro.isEmpty()){
             return ResponseEntity.notFound().build();

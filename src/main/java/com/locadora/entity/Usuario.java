@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,16 +18,16 @@ public class Usuario {
     private int id;
     private String nome;
     private String cnh;
-    private boolean administrador;
+    private boolean administrador = false;
 
     @OneToMany(mappedBy = "usuario")
-    List<Pedido> pedidosUsuario;
+    List<Pedido> pedidosUsuario = new ArrayList<Pedido>();
 
-    public Usuario(){
-    }
+    public Usuario(){}
 
-    public Usuario(String nome){
+    public Usuario(String nome, String cnh){
         this.nome = nome;
+        this.cnh = cnh;
     }
 
     public Usuario(String nome, int id){
