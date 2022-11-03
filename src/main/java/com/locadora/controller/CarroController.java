@@ -2,11 +2,9 @@ package com.locadora.controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import com.locadora.entity.Carro;
 import com.locadora.repository.Carros;
 

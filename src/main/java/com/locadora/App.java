@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.locadora.entity.Carro;
 import com.locadora.entity.Pedido;
 import com.locadora.entity.Usuario;
@@ -42,7 +41,7 @@ public class App{
             pedidos.save(pedido2);
         };
     }
-    
+
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
