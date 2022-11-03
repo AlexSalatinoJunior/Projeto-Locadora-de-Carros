@@ -20,7 +20,7 @@ public class Carro {
     private String modelo;
     private String placa;
     private float valorDiaria;
-    private boolean disponivel;
+    private boolean disponivel = true;
 
     @OneToMany(mappedBy = "carro", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -32,7 +32,6 @@ public class Carro {
         this.modelo = modelo;
         this.placa = placa;
         this.valorDiaria = valorDiaria;
-        this.disponivel = true;
     }
 
     public int getId() {
