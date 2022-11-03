@@ -69,7 +69,7 @@ public class UsuarioController {
 
     @PostMapping("/api/usuarios/id")
     @ResponseBody
-    public ResponseEntity<Usuario> saveNovoUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity saveNovoUsuario(@RequestBody Usuario usuario){
         Usuario usuarioNovo = usuarios.save(usuario);
         return ResponseEntity.ok(usuarioNovo);
     }

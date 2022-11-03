@@ -103,9 +103,9 @@ public class CarroController {
 
     @PostMapping("/api/carros/id")
     @ResponseBody
-    public ResponseEntity<Carro> saveNovoCarro(@RequestBody Carro carro){
+    public ResponseEntity saveNovoCarro(@RequestBody Carro carro){
         Carro carroSalvo = carros.save(carro);
-        return ResponseEntity.ok(carro);
+        return ResponseEntity.ok(carroSalvo);
     }
 
 }
