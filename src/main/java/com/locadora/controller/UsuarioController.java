@@ -4,9 +4,7 @@ import java.util.Optional;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.locadora.entity.Usuario;
 import com.locadora.repository.Usuarios;
 
@@ -67,5 +65,12 @@ public class UsuarioController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(usuariosAdm);
+    }
+
+    @PostMapping("/api/usuarios/id")
+    @ResponseBody
+    public ResponseEntity<Usuario> saveNovoUsuario(@RequestBody Usuario usuario){
+        Usuario usuarioNovo = usuarios.save(usuario);
+        return ResponseEntity.ok(usuarioNovo);
     }
 }

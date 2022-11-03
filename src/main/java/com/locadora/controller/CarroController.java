@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.locadora.entity.Carro;
 import com.locadora.repository.Carros;
+
+import javax.websocket.ClientEndpoint;
 
 @Controller
 public class CarroController {
@@ -98,4 +98,12 @@ public class CarroController {
         }
         return ResponseEntity.ok(carrosLocados);
     }
+
+    @PostMapping("/api/carros/id")
+    @ResponseBody
+    public ResponseEntity<Carro> saveNovoCarro(@RequestBody Carro carro){
+        Carro carroSalvo = carros.save(carro);
+        return ResponseEntity.ok(carro);
+    }
+
 }
