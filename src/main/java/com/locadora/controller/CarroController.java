@@ -23,81 +23,81 @@ public class CarroController {
 
     @GetMapping("/api/carros/id/{id}")
     @ResponseBody()
-    public ResponseEntity getCarroById(@PathVariable Integer id){
+    public ResponseEntity<Carro> getCarroById(@PathVariable Integer id){
         Optional<Carro> carro = carros.findById(id);
         if(carro.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(carro);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/api/carros")
     @ResponseBody()
-    public ResponseEntity getTodosCarros(){
+    public ResponseEntity<Carro> getTodosCarros(){
         List<Carro> todosCarros = carros.findAll();
         if(todosCarros.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(todosCarros);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/api/carros/modelo/{modelo}")
     @ResponseBody()
-    public ResponseEntity getCarroByModelo(@PathVariable String modelo){
+    public ResponseEntity<Carro> getCarroByModelo(@PathVariable String modelo){
         List<Carro> carrosModelo = carros.findByModeloContaining(modelo);
         if(carrosModelo.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(carrosModelo);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/api/carros/placa/{placa}")
     @ResponseBody()
-    public ResponseEntity getCarroByPlaca(@PathVariable String placa){
+    public ResponseEntity<Carro> getCarroByPlaca(@PathVariable String placa){
         List<Carro> carrosPlaca = carros.findByPlacaContaining(placa);
         if(carrosPlaca.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(carrosPlaca);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/api/carros/valor-maior-que/{valor}")
     @ResponseBody()
-    public ResponseEntity getCarroByValorMaiorQue(@PathVariable Float valor){
+    public ResponseEntity<Carro> getCarroByValorMaiorQue(@PathVariable Float valor){
         List<Carro> carrosValor = carros.findByValorDiariaGreaterThan(valor);
         if(carrosValor.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(carrosValor);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/api/carros/valor-menor-que/{valor}")
     @ResponseBody()
-    public ResponseEntity getCarroByValorMenorQue(@PathVariable Float valor){
+    public ResponseEntity<Carro> getCarroByValorMenorQue(@PathVariable Float valor){
         List<Carro> carrosValor = carros.findByValorDiariaLessThan(valor);
         if(carrosValor.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(carrosValor);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/api/carros/disponiveis")
     @ResponseBody()
-    public ResponseEntity getCarrosDisponiveis(){
+    public ResponseEntity<Carro> getCarrosDisponiveis(){
         List<Carro> carrosDisponiveis = carros.findByDisponivel(true);
         if(carrosDisponiveis.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(carrosDisponiveis);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/api/carros/locados")
     @ResponseBody()
-    public ResponseEntity getCarrosLocados(){
+    public ResponseEntity<Carro> getCarrosLocados(){
         List<Carro> carrosLocados = carros.findByDisponivel(false);
         if(carrosLocados.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(carrosLocados);
+        return ResponseEntity.ok().build();
     }
 }
