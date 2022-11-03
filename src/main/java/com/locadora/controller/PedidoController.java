@@ -29,63 +29,63 @@ public class PedidoController {
 
     @GetMapping("/api/pedidos")
     @ResponseBody
-    public ResponseEntity<Pedido> getPedidos(){
+    public ResponseEntity getPedidos(){
         List<Pedido> todosPedidos = pedidos.findAll();
         if(todosPedidos.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(todosPedidos);
     }
 
     @GetMapping("/api/pedidos/id/{id}")
     @ResponseBody
-    public ResponseEntity<Pedido> getPedidos(@PathVariable Integer id){
+    public ResponseEntity getPedidos(@PathVariable Integer id){
         Optional<Pedido> pedidoById = pedidos.findById(id);
         if(pedidoById.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(pedidoById);
     }
 
     @GetMapping("/api/pedidos/usuario/{idUsuario}")
     @ResponseBody
-    public ResponseEntity<Pedido> getPedidosPorUsuario(@PathVariable Integer idUsuario){
+    public ResponseEntity getPedidosPorUsuario(@PathVariable Integer idUsuario){
         Usuario usuario = usuarios.findById(idUsuario).get();
         List<Pedido> pedidosUsuario = pedidos.findByUsuario(usuario);
         if(pedidosUsuario.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(pedidosUsuario);
     }
 
     @GetMapping("/api/pedidos/carro/{idCarro}")
     @ResponseBody
-    public ResponseEntity<Pedido> getPedidosPorCarro(@PathVariable Integer idCarro){
+    public ResponseEntity getPedidosPorCarro(@PathVariable Integer idCarro){
         Carro carro = carros.findById(idCarro).get();
         List<Pedido> pedidosCarro = pedidos.findByCarro(carro);
         if(pedidosCarro.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(pedidosCarro);
     }
 
     @GetMapping("/api/pedidos/valor-total-maior/{valor}")
     @ResponseBody
-    public ResponseEntity<Pedido> getPedidosPorValorTotalMaior(@PathVariable Double valor){
+    public ResponseEntity getPedidosPorValorTotalMaior(@PathVariable Double valor){
         List<Pedido> pedidosValorTotalMaiorQue = pedidos.findByValorTotalGreaterThan(valor);
         if(pedidosValorTotalMaiorQue.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(pedidosValorTotalMaiorQue);
     }
 
     @GetMapping("/api/pedidos/valor-total-menor/{valor}")
     @ResponseBody
-    public ResponseEntity<Pedido> getPedidosPorValorTotalMenor(@PathVariable Double valor){
+    public ResponseEntity getPedidosPorValorTotalMenor(@PathVariable Double valor){
         List<Pedido> pedidosValorTotalMenorQue = pedidos.findByValorTotalLessThan(valor);
         if(pedidosValorTotalMenorQue.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(pedidosValorTotalMenorQue);
     }
 }
