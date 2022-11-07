@@ -1,16 +1,15 @@
 package com.locadora.controller;
 
 import java.util.List;
-import java.util.Optional;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+
+import static org.springframework.http.HttpStatus.*;
 import org.springframework.web.bind.annotation.*;
 import com.locadora.entity.Carro;
 import com.locadora.repository.Carros;
+import org.springframework.web.server.ResponseStatusException;
 
-import javax.websocket.ClientEndpoint;
-
-@Controller
+@RestController
+@RequestMapping("/api/carros")
 public class CarroController {
 
     private Carros carros;
@@ -19,91 +18,75 @@ public class CarroController {
         this.carros = carros;
     }
 
-    @GetMapping("/api/carros/id/{id}")
-    @ResponseBody()
-    public ResponseEntity getCarroById(@PathVariable Integer id){
-        Optional<Carro> carro = carros.findById(id);
-        if(carro.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(carro);
+    @GetMapping("/id/{id}")
+    public Carro getCarroById(@PathVariable Integer id){
+        return carros.findById(id)
+                .orElseThrow(
+                        () -> new ResponseStatusException(NOT_FOUND, "Carro não encontrado")
+                );
     }
 
-    @GetMapping("/api/carros")
-    @ResponseBody()
-    public ResponseEntity getTodosCarros(){
-        List<Carro> todosCarros = carros.findAll();
-        if(todosCarros.isEmpty()){
-            return ResponseEntity.notFound().build();
+    @GetMapping
+    public List<Carro> getTodosCarros(){
+        if(carros.findAll().isEmpty()){
+            throw new ResponseStatusException(NOT_FOUND, "Lista de carros vazias");
         }
-        return ResponseEntity.ok(todosCarros);
+        return carros.findAll();
     }
 
-    @GetMapping("/api/carros/modelo/{modelo}")
-    @ResponseBody()
-    public ResponseEntity getCarroByModelo(@PathVariable String modelo){
-        List<Carro> carrosModelo = carros.findByModeloContaining(modelo);
-        if(carrosModelo.isEmpty()){
-            return ResponseEntity.notFound().build();
+    @GetMapping("/modelo/{modelo}")
+    public List<Carro> getCarroByModelo(@PathVariable String modelo){
+        if(carros.findByModeloContaining(modelo).isEmpty()){
+            throw new ResponseStatusException(NOT_FOUND, "Modelo não encontrado");
         }
-        return ResponseEntity.ok(carrosModelo);
+        return carros.findByModeloContaining(modelo);
     }
 
-    @GetMapping("/api/carros/placa/{placa}")
-    @ResponseBody()
-    public ResponseEntity getCarroByPlaca(@PathVariable String placa){
-        List<Carro> carrosPlaca = carros.findByPlacaContaining(placa);
-        if(carrosPlaca.isEmpty()){
-            return ResponseEntity.notFound().build();
+    @GetMapping("/placa/{placa}")
+    public List<Carro> getCarroByPlaca(@PathVariable String placa){
+        if(carros.findByPlacaContaining(placa).isEmpty()){
+            throw new ResponseStatusException(NOT_FOUND, "Placa não encontrada");
         }
-        return ResponseEntity.ok(carrosPlaca);
+        return carros.findByPlacaContaining(placa);
     }
 
-    @GetMapping("/api/carros/valor-maior-que/{valor}")
-    @ResponseBody()
-    public ResponseEntity getCarroByValorMaiorQue(@PathVariable Float valor){
-        List<Carro> carrosValor = carros.findByValorDiariaGreaterThan(valor);
-        if(carrosValor.isEmpty()){
-            return ResponseEntity.notFound().build();
+    @GetMapping("/valor-maior-que/{valor}")
+    public List<Carro> getCarroByValorMaiorQue(@PathVariable Float valor){
+        if(carros.findByValorDiariaGreaterThan(valor).isEmpty()){
+            throw new ResponseStatusException(NOT_FOUND, "Sem carros com valor maior");
         }
-        return ResponseEntity.ok(carrosValor);
+        return carros.findByValorDiariaGreaterThan(valor);
     }
 
-    @GetMapping("/api/carros/valor-menor-que/{valor}")
-    @ResponseBody()
-    public ResponseEntity getCarroByValorMenorQue(@PathVariable Float valor){
-        List<Carro> carrosValor = carros.findByValorDiariaLessThan(valor);
-        if(carrosValor.isEmpty()){
-            return ResponseEntity.notFound().build();
+    @GetMapping("/valor-menor-que/{valor}")
+    public List<Carro> getCarroByValorMenorQue(@PathVariable Float valor){
+        if(carros.findByValorDiariaLessThan(valor).isEmpty()){
+            throw new ResponseStatusException(NOT_FOUND, "Sem carros com valor menor");
         }
-        return ResponseEntity.ok(carrosValor);
+        return carros.findByValorDiariaLessThan(valor);
     }
 
-    @GetMapping("/api/carros/disponiveis")
-    @ResponseBody()
-    public ResponseEntity getCarrosDisponiveis(){
-        List<Carro> carrosDisponiveis = carros.findByDisponivel(true);
-        if(carrosDisponiveis.isEmpty()){
-            return ResponseEntity.notFound().build();
+    @GetMapping("/disponiveis")
+    public List<Carro> getCarrosDisponiveis(){
+        if (carros.findByDisponivel(true).isEmpty()){
+            throw new ResponseStatusException(NOT_FOUND, "Sem carros disponiveis");
         }
-        return ResponseEntity.ok(carrosDisponiveis);
+
+        return carros.findByDisponivel(true);
     }
 
-    @GetMapping("/api/carros/locados")
-    @ResponseBody()
-    public ResponseEntity getCarrosLocados(){
-        List<Carro> carrosLocados = carros.findByDisponivel(false);
-        if(carrosLocados.isEmpty()){
-            return ResponseEntity.notFound().build();
+    @GetMapping("/locados")
+    public List<Carro> getCarrosLocados(){
+        if(carros.findByDisponivel(false).isEmpty()){
+            throw new ResponseStatusException(NOT_FOUND, "Sem carros locados");
         }
-        return ResponseEntity.ok(carrosLocados);
+        return carros.findByDisponivel(false);
     }
 
-    @PostMapping("/api/carros/id")
-    @ResponseBody
-    public ResponseEntity saveNovoCarro(@RequestBody Carro carro){
-        Carro carroSalvo = carros.save(carro);
-        return ResponseEntity.ok(carroSalvo);
+    @PostMapping("/id")
+    @ResponseStatus(CREATED)
+    public Carro saveNovoCarro(@RequestBody Carro carro){
+        return carros.save(carro);
     }
 
 }

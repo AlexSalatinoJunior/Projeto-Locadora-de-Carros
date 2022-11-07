@@ -1,13 +1,7 @@
 package com.locadora.entity;
 
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,11 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Carro {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
     private String modelo;
     private String placa;
     private float valorDiaria;
-    private boolean disponivel;
+    private boolean disponivel = true;
 
     @OneToMany(mappedBy = "carro", fetch = FetchType.LAZY)
     @JsonIgnore
