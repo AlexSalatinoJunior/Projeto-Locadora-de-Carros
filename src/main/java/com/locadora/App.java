@@ -6,12 +6,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
-import com.locadora.entity.Carro;
-import com.locadora.entity.Pedido;
-import com.locadora.entity.Usuario;
-import com.locadora.repository.Carros;
-import com.locadora.repository.Pedidos;
-import com.locadora.repository.Usuarios;
+import com.locadora.domain.entity.Carro;
+import com.locadora.domain.entity.Pedido;
+import com.locadora.domain.entity.Usuario;
+import com.locadora.domain.repository.Carros;
+import com.locadora.domain.repository.Pedidos;
+import com.locadora.domain.repository.Usuarios;
 
 @SpringBootApplication()
 @RestController
