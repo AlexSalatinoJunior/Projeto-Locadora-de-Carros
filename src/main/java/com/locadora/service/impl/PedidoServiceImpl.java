@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 
 @RestController
 @Service
@@ -48,6 +50,11 @@ public class PedidoServiceImpl implements PedidoService {
         carrosRepository.save(carro);
 
         return pedido;
+    }
+
+    @Override
+    public Optional<Pedido> obterPedidoCompleto(Integer id) {
+        return pedidosRepository.findById(id);
     }
 
     private Usuario converterUsuario(Integer idUsuario, Carro carro) {
