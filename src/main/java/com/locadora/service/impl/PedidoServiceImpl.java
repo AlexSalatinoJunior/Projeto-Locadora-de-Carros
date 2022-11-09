@@ -55,10 +55,6 @@ public class PedidoServiceImpl implements PedidoService {
         return pedido;
     }
 
-    @Override
-    public Optional<Pedido> obterPedidoCompleto(Integer id) {
-        return pedidosRepository.findById(id);
-    }
 
     @Override
     @Transactional
@@ -79,6 +75,11 @@ public class PedidoServiceImpl implements PedidoService {
                         () -> new PedidoNaoEncontradoException("pedido não encontrado")
                 );
     }
+    @Override
+    public Optional<Pedido> obterPedidoCompleto(Integer id) {
+        return pedidosRepository.findById(id);
+    }
+
 
     private Usuario converterUsuario(Integer idUsuario, Carro carro) {
         Usuario usuario = new Usuario();
