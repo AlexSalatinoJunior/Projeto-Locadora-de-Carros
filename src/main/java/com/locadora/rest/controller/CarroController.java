@@ -3,6 +3,8 @@ package com.locadora.rest.controller;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
+
+import com.locadora.domain.enums.Categoria;
 import org.springframework.web.bind.annotation.*;
 import com.locadora.domain.entity.Carro;
 import com.locadora.domain.repository.Carros;
@@ -81,6 +83,14 @@ public class CarroController {
             throw new ResponseStatusException(NOT_FOUND, "Sem carros locados");
         }
         return carros.findByDisponivel(false);
+    }
+
+    @GetMapping("/categoria/{categoria}")
+    public List<Carro> getCarroByCategoria(@PathVariable Categoria categoria){
+        if(carros.findByCategoria(categoria).isEmpty()){
+            throw new ResponseStatusException(NOT_FOUND, "Sem carros dessa categoria");
+        }
+        return carros.findByCategoria(categoria);
     }
 
     @PutMapping("/id/{id}")

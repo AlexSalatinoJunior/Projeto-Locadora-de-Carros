@@ -1,5 +1,6 @@
 package com.locadora;
 
+import static com.locadora.domain.enums.Categoria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,9 +25,9 @@ public class App{
             Usuario usuario2 = new Usuario("Andre", "10987654321");
             Usuario usuario3 = new Usuario("Joao", "11223344556");
 
-            Carro carro = new Carro("Argo", "abc-1234", 150);
-            Carro carro2 = new Carro("Onix", "xyz-9876", 120);
-            Carro carro3 = new Carro("Versa", "hij-8877", 250);
+            Carro carro = new Carro("Argo", "abc-1234", SUV, 150);
+            Carro carro2 = new Carro("Onix", "xyz-9876", HATCH, 120);
+            Carro carro3 = new Carro("Versa", "hij-8877", SEDAN, 250);
 
             Pedido pedido = new Pedido(carro2, usuario, 5);
             Pedido pedido2 = new Pedido(carro3, usuario2, 10);
