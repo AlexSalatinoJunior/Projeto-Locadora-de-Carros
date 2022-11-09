@@ -14,7 +14,9 @@ public class InformacoesPedidoDTO {
     private String nomeCliente;
     private String cnh;
     private String modeloCarro;
+    private float valorDiaria;
     private String placa;
     private Integer diasLocacao;
     private double valorTotal;
+    private String status;
 }

@@ -4,9 +4,12 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
+import com.locadora.domain.enums.StatusPedido;
+import com.locadora.rest.dto.AtualizacaoStatusPedidoDTO;
 import com.locadora.rest.dto.InformacoesPedidoDTO;
 import com.locadora.rest.dto.PedidoDTO;
 import com.locadora.service.PedidoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.locadora.domain.entity.Carro;
 import com.locadora.domain.entity.Pedido;
@@ -47,6 +50,15 @@ public class PedidoController {
                 );
     }
 
+    @PatchMapping("/id/{id}")
+    @ResponseStatus(NO_CONTENT)
+    public void updateStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto){
+
+        String novoStatus = dto.getNovoStatus();
+        pedidoService.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
+
+    }
+
     private InformacoesPedidoDTO converter(Pedido pedido){
         return InformacoesPedidoDTO.builder()
                 .id(pedido.getId())
@@ -57,6 +69,8 @@ public class PedidoController {
                 .valorTotal(pedido.getValorTotal())
                 .nomeCliente(pedido.getUsuario().getNome())
                 .cnh(pedido.getUsuario().getCnh())
+                .valorDiaria(pedido.getCarro().getValorDiaria())
+                .status(pedido.getStatus().name())
                 .build();
     }
 }

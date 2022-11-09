@@ -1,11 +1,18 @@
 package com.locadora.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.locadora.domain.enums.StatusPedido;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "PEDIDOS")
+@Data
+@Getter
+@Setter
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +31,9 @@ public class Pedido {
     @Column(name = "valor_total", scale = 2, precision = 20)
     private double valorTotal;
 
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
+
     public Pedido(){}
 
     public Pedido(Carro carro, Usuario usuario, int diasLocacao){
@@ -33,38 +43,5 @@ public class Pedido {
         this.valorTotal = diasLocacao * carro.getValorDiaria();
         carro.setDisponivel(false);
     }
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public Carro getCarro() {
-        return carro;
-    }
-    public void setCarro(Carro carro) {
-        this.carro = carro;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public int getDiasLocacao() {
-        return diasLocacao;
-    }
-    public void setDiasLocacao(int diasLocacao) {
-        this.diasLocacao = diasLocacao;
-    }
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-    public void setValorTotal(double d) {
-        this.valorTotal = d;
-    }
 }

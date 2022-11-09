@@ -17,6 +17,7 @@ public class Usuario {
     private String cnh;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_CARRO")
+    @JsonIgnore
     private Carro carroAtual;
     private boolean administrador = false;
 
@@ -76,10 +77,6 @@ public class Usuario {
 
     public void setPedidosUsuario(Set<Pedido> pedidosUsuario) {
         this.pedidosUsuario = pedidosUsuario;
-    }
-
-    public boolean isAdministrator() {
-        return administrador;
     }
 
     @Override

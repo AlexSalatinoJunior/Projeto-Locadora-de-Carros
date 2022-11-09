@@ -3,9 +3,11 @@ package com.locadora.service.impl;
 import com.locadora.domain.entity.Carro;
 import com.locadora.domain.entity.Pedido;
 import com.locadora.domain.entity.Usuario;
+import com.locadora.domain.enums.StatusPedido;
 import com.locadora.domain.repository.Carros;
 import com.locadora.domain.repository.Pedidos;
 import com.locadora.domain.repository.Usuarios;
+import com.locadora.exception.PedidoNaoEncontradoException;
 import com.locadora.exception.RegraDeNegocioException;
 import com.locadora.rest.dto.PedidoDTO;
 import com.locadora.service.PedidoService;
@@ -44,6 +46,7 @@ public class PedidoServiceImpl implements PedidoService {
         Integer idUsuario = dto.getUsuario();
         Usuario usuario = converterUsuario(idUsuario, carro);
         pedido.setUsuario(usuario);
+        pedido.setStatus(StatusPedido.REALIZADO);
 
         usuariosRepository.save(usuario);
         pedidosRepository.save(pedido);
@@ -55,6 +58,26 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
         return pedidosRepository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+        pedidosRepository.findById(id)
+                .map( pedido -> {
+                    pedido.setStatus(statusPedido);
+
+                    if(statusPedido == StatusPedido.REALIZADO){
+                        pedido.getCarro().setDisponivel(false);
+                    }else{
+                        pedido.getCarro().setDisponivel(true);
+                        pedido.getUsuario().setCarroAtual(null);
+                    }
+
+                    return pedidosRepository.save(pedido);
+                }).orElseThrow(
+                        () -> new PedidoNaoEncontradoException("pedido não encontrado")
+                );
     }
 
     private Usuario converterUsuario(Integer idUsuario, Carro carro) {
