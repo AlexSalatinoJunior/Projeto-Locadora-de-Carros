@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
 
     private Usuarios usuarios;
@@ -26,7 +27,6 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    //update for DTO to pass the actual car
     @GetMapping("/id/{id}")
     public InformacoesUsuarioDTO getUsuarioById(@PathVariable Integer id){
         return usuarioService

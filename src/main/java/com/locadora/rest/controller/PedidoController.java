@@ -1,5 +1,6 @@
 package com.locadora.rest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
@@ -21,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/pedidos")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PedidoController {
     private Pedidos pedidos;
     private Usuarios usuarios;
@@ -50,13 +52,26 @@ public class PedidoController {
                 );
     }
 
+    @GetMapping
+    public List<InformacoesPedidoDTO> getAll(){
+
+        List<InformacoesPedidoDTO> pedidos = new ArrayList<>();
+
+        pedidoService
+                .obterTodosPedidos()
+                .forEach(pedido -> {
+                   InformacoesPedidoDTO novoPedido = converter(pedido);
+                   pedidos.add(novoPedido);
+                });
+
+        return pedidos;
+    }
+
     @PatchMapping("/id/{id}")
     @ResponseStatus(NO_CONTENT)
     public void updateStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto){
-
         String novoStatus = dto.getNovoStatus();
         pedidoService.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
-
     }
 
     private InformacoesPedidoDTO converter(Pedido pedido){

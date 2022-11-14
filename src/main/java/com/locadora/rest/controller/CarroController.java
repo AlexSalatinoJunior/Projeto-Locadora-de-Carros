@@ -11,6 +11,7 @@ import com.locadora.domain.repository.Carros;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/carros")
 public class CarroController {
 

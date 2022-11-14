@@ -3,11 +3,17 @@ package com.locadora.domain.entity;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "USUARIOS")
+@Data
+@Setter
+@Getter
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,49 +42,6 @@ public class Usuario {
         this.nome = nome;
         this.id = id;
     }
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCnh() {
-        return cnh;
-    }
-
-    public void setCnh(String cnh) {
-        this.cnh = cnh;
-    }
-
-    public Carro getCarroAtual() {
-        return carroAtual;
-    }
-
-    public void setCarroAtual(Carro carroAtual) {
-        this.carroAtual = carroAtual;
-    }
-
-    public boolean isAdministrador() {
-        return administrador;
-    }
-
-    public void setAdministrador(boolean administrador) {
-        this.administrador = administrador;
-    }
-
-    public void setPedidosUsuario(Set<Pedido> pedidosUsuario) {
-        this.pedidosUsuario = pedidosUsuario;
-    }
-
     @Override
     public String toString(){
         return "Usuario{"+
@@ -86,9 +49,4 @@ public class Usuario {
         ", nome: "+nome+"\'"+
         "}";
     }
-
-    public Set<Pedido> getPedidosUsuario() {
-            return pedidosUsuario;
-        }
-
 }

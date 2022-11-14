@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -26,7 +27,7 @@ public class PedidoServiceImpl implements PedidoService {
     private Pedidos pedidosRepository;
     private Usuarios usuariosRepository;
 
-    public PedidoServiceImpl(Carros carrosRepository, Pedidos pedidosRepository, Usuarios usuariosRepository){
+    public PedidoServiceImpl(Carros carrosRepository, Pedidos pedidosRepository, Usuarios usuariosRepository) {
         this.carrosRepository = carrosRepository;
         this.pedidosRepository = pedidosRepository;
         this.usuariosRepository = usuariosRepository;
@@ -60,21 +61,28 @@ public class PedidoServiceImpl implements PedidoService {
     @Transactional
     public void atualizaStatus(Integer id, StatusPedido statusPedido) {
         pedidosRepository.findById(id)
-                .map( pedido -> {
+                .map(pedido -> {
                     pedido.setStatus(statusPedido);
 
-                    if(statusPedido == StatusPedido.REALIZADO){
+                    if (statusPedido == StatusPedido.REALIZADO) {
                         pedido.getCarro().setDisponivel(false);
-                    }else{
-                        pedido.getCarro().setDisponivel(true);
-                        pedido.getUsuario().setCarroAtual(null);
+                        return pedidosRepository.save(pedido);
                     }
+
+                    pedido.getCarro().setDisponivel(true);
+                    pedido.getUsuario().setCarroAtual(null);
 
                     return pedidosRepository.save(pedido);
                 }).orElseThrow(
                         () -> new PedidoNaoEncontradoException("pedido não encontrado")
                 );
     }
+
+    @Override
+    public List<Pedido> obterTodosPedidos() {
+        return pedidosRepository.findAll();
+    }
+
     @Override
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
         return pedidosRepository.findById(id);
@@ -85,8 +93,8 @@ public class PedidoServiceImpl implements PedidoService {
         Usuario usuario = new Usuario();
 
         return usuariosRepository.findById(idUsuario)
-                .map(usuarioExistente-> {
-                    if(usuarioExistente.getCarroAtual() != null){
+                .map(usuarioExistente -> {
+                    if (usuarioExistente.getCarroAtual() != null) {
                         throw new RegraDeNegocioException("Usuario já está alugando um carro");
                     }
 
@@ -101,12 +109,12 @@ public class PedidoServiceImpl implements PedidoService {
                 );
     }
 
-    public Carro converterCarro(Integer idCarro){
+    public Carro converterCarro(Integer idCarro) {
         Carro carro = new Carro();
 
         return carrosRepository.findById(idCarro)
                 .map(carroExistente -> {
-                    if(carroExistente.isDisponivel()){
+                    if (carroExistente.isDisponivel()) {
                         carro.setId(carroExistente.getId());
                         carro.setModelo(carroExistente.getModelo());
                         carro.setPlaca(carroExistente.getPlaca());

@@ -11,8 +11,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "PEDIDOS")
 @Data
-@Getter
-@Setter
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,6 +39,7 @@ public class Pedido {
         this.usuario = usuario;
         this.diasLocacao = diasLocacao;
         this.valorTotal = diasLocacao * carro.getValorDiaria();
+        this.status = StatusPedido.REALIZADO;
         carro.setDisponivel(false);
     }
 
