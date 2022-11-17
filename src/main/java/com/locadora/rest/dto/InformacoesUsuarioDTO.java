@@ -1,10 +1,7 @@
 package com.locadora.rest.dto;
 
-import com.locadora.domain.entity.Carro;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @Builder
