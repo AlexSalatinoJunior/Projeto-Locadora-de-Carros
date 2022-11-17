@@ -1,17 +1,18 @@
 package com.locadora;
 
+import static com.locadora.domain.enums.Categoria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
-import com.locadora.entity.Carro;
-import com.locadora.entity.Pedido;
-import com.locadora.entity.Usuario;
-import com.locadora.repository.Carros;
-import com.locadora.repository.Pedidos;
-import com.locadora.repository.Usuarios;
+import com.locadora.domain.entity.Carro;
+import com.locadora.domain.entity.Pedido;
+import com.locadora.domain.entity.Usuario;
+import com.locadora.domain.repository.Carros;
+import com.locadora.domain.repository.Pedidos;
+import com.locadora.domain.repository.Usuarios;
 
 @SpringBootApplication()
 @RestController
@@ -24,9 +25,9 @@ public class App{
             Usuario usuario2 = new Usuario("Andre", "10987654321");
             Usuario usuario3 = new Usuario("Joao", "11223344556");
 
-            Carro carro = new Carro("Argo", "abc-1234", 150);
-            Carro carro2 = new Carro("Onix", "xyz-9876", 120);
-            Carro carro3 = new Carro("Versa", "hij-8877", 250);
+            Carro carro = new Carro("Argo", "abc-1234", SUV, 150);
+            Carro carro2 = new Carro("Onix", "xyz-9876", HATCH, 120);
+            Carro carro3 = new Carro("Versa", "hij-8877", SEDAN, 250);
 
             Pedido pedido = new Pedido(carro2, usuario, 5);
             Pedido pedido2 = new Pedido(carro3, usuario2, 10);
