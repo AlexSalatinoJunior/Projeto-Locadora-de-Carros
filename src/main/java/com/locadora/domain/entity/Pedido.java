@@ -1,11 +1,7 @@
 package com.locadora.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.locadora.domain.enums.StatusPedido;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity

@@ -1,14 +1,10 @@
 package com.locadora.rest.controller;
 
-import java.util.Optional;
 import java.util.List;
-
 import com.locadora.exception.RegraDeNegocioException;
 import com.locadora.rest.dto.InformacoesUsuarioDTO;
 import com.locadora.service.UsuarioService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.locadora.domain.entity.Usuario;
 import com.locadora.domain.repository.Usuarios;

@@ -1,9 +1,6 @@
 package com.locadora.domain.entity;
 
-import java.util.Set;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.locadora.domain.enums.Categoria;
 import lombok.Data;
 import lombok.NoArgsConstructor;
