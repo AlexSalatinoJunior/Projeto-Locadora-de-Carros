@@ -56,7 +56,6 @@ public class PedidoServiceImpl implements PedidoService {
         return pedido;
     }
 
-
     @Override
     @Transactional
     public void atualizaStatus(Integer id, StatusPedido statusPedido) {
