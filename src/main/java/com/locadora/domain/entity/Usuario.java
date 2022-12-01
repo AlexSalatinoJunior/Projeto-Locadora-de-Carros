@@ -19,13 +19,15 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
+    private String login;
     private String nome;
     private String cnh;
+    private String cpf;
+    private String email;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_CARRO")
     @JsonIgnore
     private Carro carroAtual;
-    private boolean administrador = false;
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     @JsonIgnore

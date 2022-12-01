@@ -14,7 +14,6 @@ public interface Usuarios extends JpaRepository<Usuario, Integer>{
 
     List<Usuario> findByNomeContaining(String nome);
     List<Usuario> findByCnhContaining(String cnh);
-    List<Usuario> findByAdministrador(boolean administrador);
 
     @Query("select u from Usuario u left join fetch u.pedidosUsuario where u.id= :id")
     Usuario findClienteFetchPedidos(@Param("id") Integer id);

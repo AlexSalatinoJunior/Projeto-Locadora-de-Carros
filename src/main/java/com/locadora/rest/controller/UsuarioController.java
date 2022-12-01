@@ -57,14 +57,6 @@ public class UsuarioController {
         return usuarios.findByNomeContaining(nome);
     }
 
-    @GetMapping("/admin/{admin}")
-    public List<Usuario> getUsuariosByAdmin(@PathVariable Boolean admin){
-        if (usuarios.findByAdministrador(admin).isEmpty()){
-            throw new RegraDeNegocioException("Administradores não encontrados");
-        }
-        return usuarios.findByAdministrador(admin);
-    }
-
     @PostMapping("/id")
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario saveNovoUsuario(@RequestBody Usuario usuario){
@@ -77,18 +69,20 @@ public class UsuarioController {
             return InformacoesUsuarioDTO.builder()
                     .id(user.getId())
                     .nomeUsuario(user.getNome())
+                    .cpf(user.getCpf())
                     .cnh(user.getCnh())
-                    .administrador(user.isAdministrador())
+                    .email(user.getEmail())
                     .build();
         }
 
         return InformacoesUsuarioDTO.builder()
                 .id(user.getId())
                 .nomeUsuario(user.getNome())
+                .cpf(user.getCpf())
                 .cnh(user.getCnh())
+                .email(user.getEmail())
                 .idCarro(user.getCarroAtual().getId())
                 .modeloCarro(user.getCarroAtual().getModelo())
-                .administrador(user.isAdministrador())
                 .build();
     }
 }
