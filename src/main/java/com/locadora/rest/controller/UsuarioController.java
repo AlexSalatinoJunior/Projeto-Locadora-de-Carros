@@ -48,7 +48,6 @@ public class UsuarioController {
         }
         return usuarios.findByCnhContaining(cnh);
     }
-
     @GetMapping("/nome/{nome}")
     public List<Usuario> getUsuariosByNome(@PathVariable String nome){
         if(usuarios.findByNomeContaining(nome).isEmpty()){
@@ -56,6 +55,14 @@ public class UsuarioController {
         }
         return usuarios.findByNomeContaining(nome);
     }
+    @GetMapping("/login/{login}")
+    public Usuario getUsuariosByLogin(@PathVariable String login){
+        if(usuarios.findByLogin(login) == null){
+            throw new RegraDeNegocioException("Nome não encontrado");
+        }
+        return usuarios.findByLogin(login);
+    }
+
 
     @PostMapping("/id")
     @ResponseStatus(HttpStatus.CREATED)

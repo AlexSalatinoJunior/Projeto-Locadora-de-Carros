@@ -1,7 +1,9 @@
 package com.locadora.domain.repository;
 
+import java.util.Collection;
 import java.util.List;
 
+import com.locadora.rest.dto.InformacoesUsuarioDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +19,6 @@ public interface Usuarios extends JpaRepository<Usuario, Integer>{
 
     @Query("select u from Usuario u left join fetch u.pedidosUsuario where u.id= :id")
     Usuario findClienteFetchPedidos(@Param("id") Integer id);
+
+    Usuario findByLogin(String nome);
 }
