@@ -29,17 +29,12 @@ public class App{
             Carro carro2 = new Carro("Onix", "xyz-9876", HATCH, 120);
             Carro carro3 = new Carro("Versa", "hij-8877", SEDAN, 250);
 
-            Pedido pedido = new Pedido(carro2, usuario, 5);
-            Pedido pedido2 = new Pedido(carro3, usuario2, 10);
-
             usuarios.save(usuario);
             usuarios.save(usuario2);
             usuarios.save(usuario3);
             carros.save(carro);
             carros.save(carro2);
             carros.save(carro3);
-            pedidos.save(pedido);
-            pedidos.save(pedido2);
         };
     }
 

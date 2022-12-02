@@ -48,6 +48,24 @@ public class ClienteController {
         return clienteService.salvar(cliente);
     }
 
+
+
+    @PostMapping("/auth")
+    public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciais){
+        try{
+            Cliente cliente = Cliente
+                    .builder()
+                    .login(credenciais.getLogin())
+                    .senha(credenciais.getSenha())
+                    .id(usuariosRepository.findByLogin(credenciais.getLogin()).getId())
+                    .build();
+            UserDetails usuarioAutenticado = clienteService.autenticar(cliente);
+            String token = jwtService.gerarToken(cliente);
+            return new TokenDTO(cliente.getLogin(), token, cliente.getId().toString());
+        }catch (UsernameNotFoundException | SenhaInvalidaException ex){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage());
+        }
+    }
     private Address createAddress(Address dto) {
         Address address = new Address();
         address.setLogin(dto.getLogin());
@@ -58,23 +76,6 @@ public class ClienteController {
         address.setEstado(dto.getEstado());
         address.setNumero(dto.getNumero());
         return addressRepository.save(address);
-    }
-
-
-    @PostMapping("/auth")
-    public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciais){
-        try{
-            Cliente cliente = Cliente
-                    .builder()
-                    .login(credenciais.getLogin())
-                    .senha(credenciais.getSenha())
-                    .build();
-            UserDetails usuarioAutenticado = clienteService.autenticar(cliente);
-            String token = jwtService.gerarToken(cliente);
-            return new TokenDTO(cliente.getLogin(), token);
-        }catch (UsernameNotFoundException | SenhaInvalidaException ex){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage());
-        }
     }
     private Cliente createCliente(ClienteDTO dto) {
         Cliente cliente = new Cliente();
