@@ -3,7 +3,6 @@ package com.locadora.config;
 import com.locadora.security.jwt.JwtAuthFilter;
 import com.locadora.security.jwt.JwtService;
 import com.locadora.service.impl.ClienteServiceImpl;
-import com.locadora.service.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -51,7 +50,7 @@ public class SecurityConfig {
                 .antMatchers("/api/usuarios/login/**")
                 .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/carros/**")
-                .hasAnyRole("USER", "ADMIN")
+                .permitAll()
                 .antMatchers("/api/pedidos/**")
                 .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/address/**")

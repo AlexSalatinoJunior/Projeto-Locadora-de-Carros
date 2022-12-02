@@ -42,13 +42,12 @@ public class ClienteController {
         String senhaCriptografada = passwordEncoder.encode(cliente.getSenha());
 
         createUsuario(dto);
+        System.out.println(dto);
         createAddress(dto.getAddress());
 
         cliente.setSenha(senhaCriptografada);
         return clienteService.salvar(cliente);
     }
-
-
 
     @PostMapping("/auth")
     public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciais){
