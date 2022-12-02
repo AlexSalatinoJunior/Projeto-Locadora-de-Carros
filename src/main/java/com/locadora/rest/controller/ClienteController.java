@@ -13,7 +13,6 @@ import com.locadora.security.jwt.JwtService;
 import com.locadora.service.impl.ClienteServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
@@ -42,6 +41,7 @@ public class ClienteController {
         String senhaCriptografada = passwordEncoder.encode(cliente.getSenha());
 
         createUsuario(dto);
+        System.out.println(dto);
         createAddress(dto.getAddress());
 
         cliente.setSenha(senhaCriptografada);
@@ -69,7 +69,7 @@ public class ClienteController {
                     .login(credenciais.getLogin())
                     .senha(credenciais.getSenha())
                     .build();
-            UserDetails usuarioAutenticado = clienteService.autenticar(cliente);
+            clienteService.autenticar(cliente);
             String token = jwtService.gerarToken(cliente);
             return new TokenDTO(cliente.getLogin(), token);
         }catch (UsernameNotFoundException | SenhaInvalidaException ex){
