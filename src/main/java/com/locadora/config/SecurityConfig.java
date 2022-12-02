@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .antMatchers("/api/usuarios/login/**")
                 .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/carros/**")
-                .hasAnyRole("USER", "ADMIN")
+                .permitAll()
                 .antMatchers("/api/pedidos/**")
                 .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/address/**")

@@ -55,6 +55,7 @@ public class UsuarioController {
         }
         return usuarios.findByNomeContaining(nome);
     }
+
     @GetMapping("/login/{login}")
     public Usuario getUsuariosByLogin(@PathVariable String login){
         if(usuarios.findByLogin(login) == null){

@@ -15,7 +15,6 @@ import com.locadora.domain.repository.Pedidos;
 import com.locadora.domain.repository.Usuarios;
 
 @SpringBootApplication()
-@RestController
 public class App{
 
     @Bean
