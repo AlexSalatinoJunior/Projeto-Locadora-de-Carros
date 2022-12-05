@@ -58,7 +58,7 @@ public class ClienteController {
                     .senha(credenciais.getSenha())
                     .id(usuariosRepository.findByLogin(credenciais.getLogin()).getId())
                     .build();
-            UserDetails usuarioAutenticado = clienteService.autenticar(cliente);
+            clienteService.autenticar(cliente);
             String token = jwtService.gerarToken(cliente);
             return new TokenDTO(cliente.getLogin(), token, cliente.getId().toString());
         }catch (UsernameNotFoundException | SenhaInvalidaException ex){
