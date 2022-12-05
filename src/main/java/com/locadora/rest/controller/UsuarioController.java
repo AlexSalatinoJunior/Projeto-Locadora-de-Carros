@@ -1,8 +1,11 @@
 package com.locadora.rest.controller;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.locadora.exception.RegraDeNegocioException;
 import com.locadora.rest.dto.InformacoesUsuarioDTO;
+import com.locadora.rest.dto.LoginInfoDTO;
 import com.locadora.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +34,13 @@ public class UsuarioController {
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado")
                 );
+    }
+
+    @GetMapping("{id}")
+    public LoginInfoDTO getLoginById(@PathVariable Integer id){
+        LoginInfoDTO login = new LoginInfoDTO();
+        login.setLogin(usuarios.findById(id).get().getLogin());
+        return login;
     }
 
     @GetMapping
