@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.locadora.domain.entity.Carro;
+import com.locadora.domain.entity.Cliente;
 import com.locadora.domain.entity.Pedido;
 import com.locadora.domain.entity.Usuario;
 
