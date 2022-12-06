@@ -8,6 +8,7 @@ import com.locadora.domain.repository.Pedidos;
 import com.locadora.domain.repository.Usuarios;
 import com.locadora.rest.dto.AtualizacaoStatusPedidoDTO;
 import com.locadora.rest.dto.InformacoesPedidoDTO;
+import com.locadora.rest.dto.MultaDTO;
 import com.locadora.rest.dto.PedidoDTO;
 import com.locadora.service.PedidoService;
 import org.springframework.http.ResponseEntity;
@@ -60,10 +61,12 @@ public class PedidoController {
     }
 
     @PatchMapping("/id/{id}")
-    @ResponseStatus(NO_CONTENT)
-    public void updateStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto){
+    public MultaDTO updateStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto){
         String novoStatus = dto.getNovoStatus();
         pedidoService.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
+        MultaDTO multaDTO = new MultaDTO();
+        multaDTO.setValorMulta(pedidoService.calculaMulta(id, dto.getDiasUsados()));
+        return multaDTO;
     }
 
     @GetMapping("/login/{login}")
