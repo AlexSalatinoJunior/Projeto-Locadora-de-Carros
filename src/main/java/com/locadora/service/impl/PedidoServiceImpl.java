@@ -83,6 +83,16 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
+    public int calculaMulta(Integer id, Integer diasUsados) {
+        Optional<Pedido> pedido = pedidosRepository.findById(id);
+        if(diasUsados > pedido.get().getDiasLocacao()){
+            return (diasUsados - pedido.get().getDiasLocacao()) * 50;
+        }
+        return 0;
+    }
+
+
+    @Override
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
         return pedidosRepository.findById(id);
     }
