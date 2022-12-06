@@ -4,6 +4,9 @@ import com.locadora.domain.entity.Cliente;
 import com.locadora.domain.repository.ClienteRepository;
 import com.locadora.exception.SenhaInvalidaException;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Optional;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,9 +37,7 @@ public class ClienteServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Cliente cliente = clienteRepository.findByLogin(username).orElseThrow(
-                () -> new UsernameNotFoundException("Cliente não encontrado")
-        );
+        Cliente cliente = clienteRepository.findByLogin(username).get();
 
         String[] roles = cliente.isAdmin() ?
                 new String[]{"ADMIN", "USER"} :

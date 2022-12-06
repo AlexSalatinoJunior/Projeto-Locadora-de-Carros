@@ -8,6 +8,8 @@ import com.locadora.domain.enums.Categoria;
 import org.springframework.web.bind.annotation.*;
 import com.locadora.domain.entity.Carro;
 import com.locadora.domain.repository.Carros;
+import com.locadora.rest.dto.CarroDTO;
+
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -109,8 +111,19 @@ public class CarroController {
 
     @PostMapping("/id")
     @ResponseStatus(CREATED)
-    public Carro saveNovoCarro(@RequestBody Carro carro){
+    public Carro saveNovoCarro(@RequestBody CarroDTO dto){
+        Carro carro = criarCarro(dto);
+        System.out.println(carro);
         return carros.save(carro);
+    }
+
+    private Carro criarCarro(CarroDTO dto){
+        Carro carro = new Carro();
+        carro.setModelo(dto.getModelo());
+        carro.setPlaca(dto.getPlaca());
+        carro.setCategoria(Categoria.valueOf(dto.getCategoria()));
+        carro.setValorDiaria(dto.getValorDiaria());
+        return carro;
     }
 
 }

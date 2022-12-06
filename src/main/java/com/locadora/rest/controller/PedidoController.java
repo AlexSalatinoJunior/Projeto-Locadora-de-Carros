@@ -1,27 +1,19 @@
 package com.locadora.rest.controller;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.springframework.http.HttpStatus.*;
-
 import com.locadora.domain.enums.StatusPedido;
-import com.locadora.domain.repository.Clientes;
 import com.locadora.domain.repository.Pedidos;
 import com.locadora.domain.repository.Usuarios;
 import com.locadora.rest.dto.AtualizacaoStatusPedidoDTO;
 import com.locadora.rest.dto.InformacoesPedidoDTO;
 import com.locadora.rest.dto.PedidoDTO;
 import com.locadora.service.PedidoService;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.locadora.domain.entity.Cliente;
 import com.locadora.domain.entity.Pedido;
 import com.locadora.domain.entity.Usuario;
-
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -30,13 +22,11 @@ import org.springframework.web.server.ResponseStatusException;
 public class PedidoController {
     private PedidoService pedidoService;
     private Pedidos pedidosRepo;
-    private Clientes clientesRepo;
     private Usuarios usuariosRepo;
 
-    public PedidoController(PedidoService pedidoService, Pedidos pedidosRepo, Clientes clientesRepo, Usuarios usuariosRepo){
+    public PedidoController(PedidoService pedidoService, Pedidos pedidosRepo, Usuarios usuariosRepo){
         this.pedidoService = pedidoService;
         this.pedidosRepo = pedidosRepo;
-        this.clientesRepo = clientesRepo;
         this.usuariosRepo = usuariosRepo;
     }
     @PostMapping("/id")

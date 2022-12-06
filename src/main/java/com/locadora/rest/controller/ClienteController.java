@@ -4,6 +4,7 @@ import com.locadora.domain.entity.Address;
 import com.locadora.domain.entity.Cliente;
 import com.locadora.domain.entity.Usuario;
 import com.locadora.domain.repository.AddressRepository;
+import com.locadora.domain.repository.ClienteRepository;
 import com.locadora.domain.repository.Usuarios;
 import com.locadora.exception.SenhaInvalidaException;
 import com.locadora.rest.dto.ClienteDTO;
@@ -33,6 +34,7 @@ public class ClienteController {
     private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final ClienteRepository clienteRepository;
 
     @PostMapping
     @ResponseStatus(CREATED)
@@ -65,6 +67,13 @@ public class ClienteController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage());
         }
     }
+
+    @GetMapping("/id/{id}")
+    private Cliente getClienteIdUsuario(@PathVariable Integer id){
+        String login = usuariosRepository.findById(id).get().getLogin();
+        return clienteRepository.findByLogin(login).get();
+    }
+
     private Address createAddress(Address dto) {
         Address address = new Address();
         address.setLogin(dto.getLogin());
@@ -80,6 +89,7 @@ public class ClienteController {
         Cliente cliente = new Cliente();
         cliente.setSenha(dto.getSenha());
         cliente.setLogin(dto.getLogin());
+        cliente.setAdmin(dto.getAdmin());
         return cliente;
     }
     public Usuario createUsuario(ClienteDTO dto){

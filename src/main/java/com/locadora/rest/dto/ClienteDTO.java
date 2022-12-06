@@ -12,6 +12,7 @@ public class ClienteDTO {
     private String login;
     private String senha;
     private Address address;
+    private Boolean admin;
 
     public ClienteDTO(){}
 }

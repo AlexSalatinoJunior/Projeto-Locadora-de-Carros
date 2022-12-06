@@ -1,6 +1,8 @@
 package com.locadora.domain.repository;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +20,5 @@ public interface Usuarios extends JpaRepository<Usuario, Integer>{
     Usuario findClienteFetchPedidos(@Param("id") Integer id);
 
     Usuario findByLogin(String nome);
+    Optional<Usuario> findById(Integer id);
 }
