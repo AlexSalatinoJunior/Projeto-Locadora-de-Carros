@@ -1,12 +1,8 @@
 package com.locadora.service.impl;
-
 import com.locadora.domain.entity.Cliente;
 import com.locadora.domain.repository.ClienteRepository;
 import com.locadora.exception.SenhaInvalidaException;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Optional;
-
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

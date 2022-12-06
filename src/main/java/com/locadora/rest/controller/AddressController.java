@@ -1,16 +1,10 @@
 package com.locadora.rest.controller;
-
 import com.locadora.domain.entity.Address;
-import com.locadora.domain.entity.Cliente;
-import com.locadora.domain.entity.Usuario;
 import com.locadora.domain.repository.AddressRepository;
-import com.locadora.domain.repository.Clientes;
 import com.locadora.domain.repository.Usuarios;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/address")

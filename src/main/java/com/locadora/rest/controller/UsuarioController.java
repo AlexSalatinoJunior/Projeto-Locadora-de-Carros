@@ -1,8 +1,6 @@
 package com.locadora.rest.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import com.locadora.exception.RegraDeNegocioException;
 import com.locadora.rest.dto.InformacoesUsuarioDTO;
 import com.locadora.rest.dto.LoginInfoDTO;

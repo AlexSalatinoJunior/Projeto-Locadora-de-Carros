@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import com.locadora.domain.entity.Carro;
-import com.locadora.domain.entity.Pedido;
 import com.locadora.domain.entity.Usuario;
 import com.locadora.domain.repository.Carros;
 import com.locadora.domain.repository.Pedidos;
