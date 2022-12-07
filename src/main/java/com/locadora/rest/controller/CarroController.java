@@ -98,15 +98,14 @@ public class CarroController {
 
     @PutMapping("/id/{id}")
     @ResponseStatus(NO_CONTENT)
-    public void update(@PathVariable Integer id, @RequestBody Carro carro){
-        carros.findById(id)
-                .map(carroExistente ->{
-                    carro.setId(carroExistente.getId());
-                    carros.save(carro);
-                    return carro;
-                }).orElseThrow(
-                        () -> new ResponseStatusException(NOT_FOUND, "Carro não encontrado")
-                );
+    public Carro update(@PathVariable Integer id, @RequestBody CarroDTO carro){
+        Carro carroExistente = carros.findById(id).get();
+        carroExistente.setModelo(carro.getModelo());
+        carroExistente.setPlaca(carro.getPlaca());
+        carroExistente.setCategoria(Categoria.valueOf(carro.getCategoria()));
+        carroExistente.setValorDiaria(carro.getValorDiaria());
+        carroExistente.setDisponivel(carro.getDisponivel());
+        return carros.save(carroExistente);
     }
 
     @PostMapping("/id")

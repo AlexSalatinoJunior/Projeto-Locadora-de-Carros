@@ -9,5 +9,6 @@ public class CarroDTO {
     private String placa;
     private String categoria;
     private Float valorDiaria;
+    private Boolean disponivel;
 
 }
