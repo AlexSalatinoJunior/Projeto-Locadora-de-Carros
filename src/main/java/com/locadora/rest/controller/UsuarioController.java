@@ -1,10 +1,15 @@
 package com.locadora.rest.controller;
 
 import java.util.List;
+
+import com.locadora.domain.entity.Address;
+import com.locadora.domain.repository.AddressRepository;
 import com.locadora.exception.RegraDeNegocioException;
 import com.locadora.rest.dto.InformacoesUsuarioDTO;
 import com.locadora.rest.dto.LoginInfoDTO;
 import com.locadora.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.locadora.domain.entity.Usuario;
@@ -12,17 +17,16 @@ import com.locadora.domain.repository.Usuarios;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
 
-    private Usuarios usuarios;
-    private UsuarioService usuarioService;
+    private final Usuarios usuarios;
+    private final UsuarioService usuarioService;
+    private final AddressRepository addressRepository;
 
-    public UsuarioController(Usuarios usuarios, UsuarioService usuarioService){
-        this.usuarios = usuarios;
-        this.usuarioService = usuarioService;
-    }
+
 
     @GetMapping("/id/{id}")
     public InformacoesUsuarioDTO getUsuarioById(@PathVariable Integer id){
@@ -72,6 +76,21 @@ public class UsuarioController {
         return usuarios.findByLogin(login);
     }
 
+    @PatchMapping("/id/{id}")
+    public Usuario updateAddress(@PathVariable Integer id, @RequestBody Address address){
+        Usuario originalUsuario = usuarios.findById(id).orElseThrow(
+                () -> new RegraDeNegocioException("Usuario não encontrado")
+        );
+        Address originalAddressFromUsuario = addressRepository
+                .findById(originalUsuario.getAddress().getId()).orElseThrow(
+                        () -> new RegraDeNegocioException("Endereco não encontrado")
+                );
+        address.setId(originalAddressFromUsuario.getId());
+        addressRepository.save(address);
+        originalUsuario.setAddress(address);
+        System.out.println(originalUsuario);
+        return usuarios.save(originalUsuario);
+    }
 
     @PostMapping("/id")
     @ResponseStatus(HttpStatus.CREATED)

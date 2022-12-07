@@ -69,15 +69,15 @@ public class ClienteController {
         return clienteRepository.findByLogin(login).get();
     }
 
-    private Address createAddress(Address dto) {
+    private Address createAddress(ClienteDTO dto) {
         Address address = new Address();
         address.setLogin(dto.getLogin());
-        address.setCep(dto.getCep());
-        address.setRua(dto.getRua());
-        address.setCidade(dto.getCidade());
-        address.setBairro(dto.getBairro());
-        address.setEstado(dto.getEstado());
-        address.setNumero(dto.getNumero());
+        address.setCep(dto.getAddress().getCep());
+        address.setRua(dto.getAddress().getRua());
+        address.setCidade(dto.getAddress().getCidade());
+        address.setBairro(dto.getAddress().getBairro());
+        address.setEstado(dto.getAddress().getEstado());
+        address.setNumero(dto.getAddress().getNumero());
         return addressRepository.save(address);
     }
     private Cliente createCliente(ClienteDTO dto) {
@@ -94,7 +94,7 @@ public class ClienteController {
         usuario.setCnh(dto.getCnh());
         usuario.setCpf(dto.getCpf());
         usuario.setEmail(dto.getLogin());
-        usuario.setAddress(dto.getAddress());
+        usuario.setAddress(createAddress(dto));
         return usuariosRepository.save(usuario);
     }
 }
