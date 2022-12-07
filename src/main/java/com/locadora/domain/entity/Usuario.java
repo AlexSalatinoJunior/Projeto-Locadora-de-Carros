@@ -24,7 +24,7 @@ public class Usuario {
     private String cnh;
     private String cpf;
     private String email;
-    @OneToOne(cascade=CascadeType.PERSIST)
+    @OneToOne(cascade=CascadeType.MERGE)
     private Address address;
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
@@ -39,10 +39,16 @@ public class Usuario {
     }
 
     @Override
-    public String toString(){
-        return "Usuario{"+
-        "id="+id+
-        ", nome: "+nome+"\'"+
-        "}";
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", nome='" + nome + '\'' +
+                ", cnh='" + cnh + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", email='" + email + '\'' +
+                ", address=" + address +
+                ", pedidosUsuario=" + pedidosUsuario +
+                '}';
     }
 }
