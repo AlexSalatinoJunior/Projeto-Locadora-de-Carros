@@ -101,6 +101,7 @@ public class PedidoServiceImpl implements PedidoService {
                         carro.setModelo(carroExistente.getModelo());
                         carro.setPlaca(carroExistente.getPlaca());
                         carro.setValorDiaria(carroExistente.getValorDiaria());
+                        carro.setCategoria(carroExistente.getCategoria());
                         carro.setDisponivel(false);
                         return carro;
                     }
