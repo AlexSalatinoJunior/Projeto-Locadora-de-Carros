@@ -24,10 +24,8 @@ public class Usuario {
     private String cnh;
     private String cpf;
     private String email;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_CARRO")
-    @JsonIgnore
-    private Carro carroAtual;
+    @OneToOne(cascade=CascadeType.PERSIST)
+    private Address address;
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -35,15 +33,11 @@ public class Usuario {
 
     public Usuario(){}
 
-    public Usuario(String nome, String cnh){
-        this.nome = nome;
-        this.cnh = cnh;
+    public Usuario addPedido(Pedido pedido){
+        pedidosUsuario.add(pedido);
+        return this;
     }
 
-    public Usuario(String nome, int id){
-        this.nome = nome;
-        this.id = id;
-    }
     @Override
     public String toString(){
         return "Usuario{"+

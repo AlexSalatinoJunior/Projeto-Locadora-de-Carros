@@ -80,25 +80,13 @@ public class UsuarioController {
     }
 
     private InformacoesUsuarioDTO converter(Usuario user){
-
-        if(user.getCarroAtual() == null){
-            return InformacoesUsuarioDTO.builder()
-                    .id(user.getId())
-                    .nomeUsuario(user.getNome())
-                    .cpf(user.getCpf())
-                    .cnh(user.getCnh())
-                    .email(user.getEmail())
-                    .build();
-        }
-
         return InformacoesUsuarioDTO.builder()
                 .id(user.getId())
                 .nomeUsuario(user.getNome())
                 .cpf(user.getCpf())
                 .cnh(user.getCnh())
                 .email(user.getEmail())
-                .idCarro(user.getCarroAtual().getId())
-                .modeloCarro(user.getCarroAtual().getModelo())
+                .address(user.getAddress())
                 .build();
     }
 }

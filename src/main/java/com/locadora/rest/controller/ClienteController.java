@@ -41,11 +41,7 @@ public class ClienteController {
 
         Cliente cliente = createCliente(dto);
         String senhaCriptografada = passwordEncoder.encode(cliente.getSenha());
-
         createUsuario(dto);
-        System.out.println(dto);
-        createAddress(dto.getAddress());
-
         cliente.setSenha(senhaCriptografada);
         return clienteService.salvar(cliente);
     }
@@ -98,6 +94,7 @@ public class ClienteController {
         usuario.setCnh(dto.getCnh());
         usuario.setCpf(dto.getCpf());
         usuario.setEmail(dto.getLogin());
+        usuario.setAddress(dto.getAddress());
         return usuariosRepository.save(usuario);
     }
 }

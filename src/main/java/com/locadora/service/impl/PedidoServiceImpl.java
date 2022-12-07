@@ -39,16 +39,12 @@ public class PedidoServiceImpl implements PedidoService {
 
         Pedido pedido = new Pedido();
         pedido.setDiasLocacao(dto.getDiasLocacao());
-
         Carro carro = converterCarro(dto.getCarro());
         pedido.setValorTotal(carro.getValorDiaria() * pedido.getDiasLocacao());
         pedido.setCarro(carro);
-
-        Integer idUsuario = dto.getUsuario();
-        Usuario usuario = converterUsuario(idUsuario, carro);
+        Usuario usuario = usuariosRepository.findById(dto.getUsuario()).get();
         pedido.setUsuario(usuario);
         pedido.setStatus(StatusPedido.REALIZADO);
-
         usuariosRepository.save(usuario);
         pedidosRepository.save(pedido);
         carrosRepository.save(carro);
@@ -69,8 +65,6 @@ public class PedidoServiceImpl implements PedidoService {
                     }
 
                     pedido.getCarro().setDisponivel(true);
-                    pedido.getUsuario().setCarroAtual(null);
-
                     return pedidosRepository.save(pedido);
                 }).orElseThrow(
                         () -> new PedidoNaoEncontradoException("pedido não encontrado")
@@ -95,27 +89,6 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
         return pedidosRepository.findById(id);
-    }
-
-
-    private Usuario converterUsuario(Integer idUsuario, Carro carro) {
-        Usuario usuario = new Usuario();
-
-        return usuariosRepository.findById(idUsuario)
-                .map(usuarioExistente -> {
-                    if (usuarioExistente.getCarroAtual() != null) {
-                        throw new RegraDeNegocioException("Usuario já está alugando um carro");
-                    }
-
-                    usuario.setId(usuarioExistente.getId());
-                    usuario.setNome(usuarioExistente.getNome());
-                    usuario.setCnh(usuarioExistente.getCnh());
-                    usuario.setCarroAtual(carro);
-                    return usuario;
-                })
-                .orElseThrow(
-                        () -> new RegraDeNegocioException("Usuario não encontrado")
-                );
     }
 
     public Carro converterCarro(Integer idCarro) {

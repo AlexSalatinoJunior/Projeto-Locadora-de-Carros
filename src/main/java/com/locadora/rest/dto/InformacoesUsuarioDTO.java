@@ -1,5 +1,6 @@
 package com.locadora.rest.dto;
 
+import com.locadora.domain.entity.Address;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,7 +12,5 @@ public class InformacoesUsuarioDTO {
     private String cpf;
     private String cnh;
     private String email;
-    private Integer idCarro;
-    private String modeloCarro;
-    private boolean administrador;
+    private Address address;
 }
