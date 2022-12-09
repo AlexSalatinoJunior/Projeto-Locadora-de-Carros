@@ -1,15 +1,16 @@
 package com.locadora.rest.controller;
 
 import java.util.List;
-
 import com.locadora.domain.entity.Address;
+import com.locadora.domain.entity.Cliente;
 import com.locadora.domain.repository.AddressRepository;
+import com.locadora.domain.repository.ClienteRepository;
 import com.locadora.exception.RegraDeNegocioException;
 import com.locadora.rest.dto.InformacoesUsuarioDTO;
 import com.locadora.rest.dto.LoginInfoDTO;
+import com.locadora.rest.dto.UsuarioDTO;
 import com.locadora.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.locadora.domain.entity.Usuario;
@@ -25,6 +26,7 @@ public class UsuarioController {
     private final Usuarios usuarios;
     private final UsuarioService usuarioService;
     private final AddressRepository addressRepository;
+    private final ClienteRepository clienteRepository;
 
 
 
@@ -96,6 +98,20 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario saveNovoUsuario(@RequestBody Usuario usuario){
         return usuarios.save(usuario);
+    }
+
+    @PutMapping("/id/{id}")
+    public Usuario update(@PathVariable Integer id, @RequestBody UsuarioDTO usuario){
+        Usuario usuarioExistente = usuarios.findById(id).get();
+        usuarioExistente.setNome(usuario.getNome());
+        usuarioExistente.setCpf(usuario.getCpf());
+        usuarioExistente.setCnh(usuario.getCnh());
+        usuarioExistente.setLogin(usuario.getLogin());
+        Cliente cliente = clienteRepository.findByLogin(usuario.getLogin()).get();
+        cliente.setSenha(usuario.getSenha());
+        cliente.setAdmin(usuario.getAdmin());
+        clienteRepository.save(cliente);
+        return usuarios.save(usuarioExistente);
     }
 
     private InformacoesUsuarioDTO converter(Usuario user){
