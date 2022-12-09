@@ -97,7 +97,6 @@ public class CarroController {
     }
 
     @PutMapping("/id/{id}")
-    @ResponseStatus(NO_CONTENT)
     public Carro update(@PathVariable Integer id, @RequestBody CarroDTO carro){
         Carro carroExistente = carros.findById(id).get();
         carroExistente.setModelo(carro.getModelo());
