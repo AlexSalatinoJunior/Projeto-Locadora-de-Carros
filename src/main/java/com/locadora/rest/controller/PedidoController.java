@@ -2,6 +2,8 @@ package com.locadora.rest.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import static org.springframework.http.HttpStatus.*;
 import com.locadora.domain.enums.StatusPedido;
 import com.locadora.domain.repository.Pedidos;
@@ -34,6 +36,14 @@ public class PedidoController {
     @PostMapping("/id")
     @ResponseStatus(CREATED)
     public ResponseEntity saveNovoPedido(@RequestBody PedidoDTO dto){
+        Optional<Usuario> usuarioOpt = usuariosRepo.findById(dto.getUsuario());
+        List<Pedido> pedidosUsuario = pedidosRepo.findByUsuario(usuarioOpt);
+        for(int i = 0; i < pedidosUsuario.size(); i++){
+            Pedido pedidoAtual = pedidosUsuario.get(i);
+            if(pedidoAtual.getStatus() == StatusPedido.REALIZADO){
+                return ResponseEntity.status(UNAUTHORIZED).build();
+            }
+        }
         pedidoService.salvar(dto);
         System.out.println(dto);
         return ResponseEntity.noContent().build();
