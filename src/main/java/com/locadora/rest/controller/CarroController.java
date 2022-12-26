@@ -101,6 +101,7 @@ public class CarroController {
         Carro carroExistente = carros.findById(id).get();
         carroExistente.setModelo(carro.getModelo());
         carroExistente.setPlaca(carro.getPlaca());
+        carroExistente.setImageUrl(carro.getImageUrl());
         carroExistente.setCategoria(Categoria.valueOf(carro.getCategoria()));
         carroExistente.setValorDiaria(carro.getValorDiaria());
         carroExistente.setDisponivel(carro.getDisponivel());
@@ -119,6 +120,7 @@ public class CarroController {
         Carro carro = new Carro();
         carro.setModelo(dto.getModelo());
         carro.setPlaca(dto.getPlaca());
+        carro.setImageUrl(dto.getImageUrl());
         carro.setCategoria(Categoria.valueOf(dto.getCategoria()));
         carro.setValorDiaria(dto.getValorDiaria());
         return carro;

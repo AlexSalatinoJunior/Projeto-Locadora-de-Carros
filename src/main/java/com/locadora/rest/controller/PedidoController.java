@@ -13,6 +13,7 @@ import com.locadora.rest.dto.InformacoesPedidoDTO;
 import com.locadora.rest.dto.MultaDTO;
 import com.locadora.rest.dto.PedidoDTO;
 import com.locadora.service.PedidoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.locadora.domain.entity.Pedido;
@@ -20,18 +21,13 @@ import com.locadora.domain.entity.Usuario;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/pedidos")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PedidoController {
-    private PedidoService pedidoService;
-    private Pedidos pedidosRepo;
-    private Usuarios usuariosRepo;
-
-    public PedidoController(PedidoService pedidoService, Pedidos pedidosRepo, Usuarios usuariosRepo){
-        this.pedidoService = pedidoService;
-        this.pedidosRepo = pedidosRepo;
-        this.usuariosRepo = usuariosRepo;
-    }
+    private final PedidoService pedidoService;
+    private final Pedidos pedidosRepo;
+    private final Usuarios usuariosRepo;
 
     @PostMapping("/id")
     @ResponseStatus(CREATED)
